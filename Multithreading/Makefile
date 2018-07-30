@@ -4,7 +4,7 @@ LIBS=
 
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Wpedantic #-Werror
-LIBFLAGS:=-lm -lpthread
+LIBFLAGS:=-lm -pthread
 
 ifneq ($(LIBS),)
 LIBFLAGS+=$(shell pkg-config --cflags --libs $(LIBS) | sed -e 's/^[[:space:]]*//')
