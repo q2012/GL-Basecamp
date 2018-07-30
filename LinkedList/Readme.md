@@ -14,8 +14,8 @@ List node is embedded in data structure. It doesn't use memory allocation and ca
 
 There are some points to review and some questionable solution. Things, important to me i mentioned in **Questions.txt** file.
 
-To compile program run _make_ in terminal in directory with all files.
-To compile program with assert checking all operations run _make CFLAGS+=-DDEBUG_
+To compile program run _make_ in terminal in directory with all files.\
+To compile program with assert checking all operations run _make CFLAGS+=-DDEBUG_\
 To run binary file run _./test_list_ in terminal.
 
 The program is divided in 3 files:\
