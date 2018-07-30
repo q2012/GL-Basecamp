@@ -5,17 +5,22 @@ DEPS:=$(addsuffix .o, $(DEPS))
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Wpedantic
 
-.PHONY: clean all
+.PHONY: help clean all
 
-all:	$(TARGET)
+all:	clean | $(TARGET)	## clean & build all
 
-$(TARGET): $(DEPS)
+help:				## display this message
+	@echo Available options:
+	@echo Run with CFLAGS+=DDEBUG to do assert check for every operation tested
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+$(TARGET): $(DEPS)		## build target exec
 	$(CC) $(CFLAGS) $(addsuffix .c, $(TARGET)) $(DEPS) -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
-clean:
+clean:	## tidy build directory
 	@echo Tidying things up...
 	-rm -f $(TARGET)
 	-rm -f $(DEPS)

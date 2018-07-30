@@ -159,8 +159,7 @@ static inline void insert_after(struct list *prev, struct list *elem)
  * only in macro, and there they imported it like list_for_each_safe(pos, temp, head)
  * While in macro they don`t actually have other approach, here i can go either way.
  * Just for demonstration, how this could look like if i import temp, here is the code.
- * Also it seems like if i create inner variable, compiler won`t make this func as inline
- * (i`m not very sure of it). This is first time in this file this dilemma appears, 
+ * This is first time in this file this dilemma appears, 
  * so after this explanation i won`t touch it anymore.
  * 
  * * static inline void insert_n(struct list *list, struct list *elem, int n, struct list *temp)

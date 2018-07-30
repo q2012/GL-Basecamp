@@ -1,0 +1,14 @@
+1) How to implement operations like slice, extend, copy etc, that require second list in the end?
+	I have to allocate memory? Or i have to ask user to give me memory before doing operation?
+	How, in last case, i can be sure that user gives me enough?
+
+2) This implementation is definently not user-friendly when asking comparator function which should look
+	like comp(list *a, list *b) while he wants to write smth like comp(struct mystructa *, struct mystructb *).
+	How can i avoid it? I can't do list_entry by myself, cause i don't know type, and i ask user to provide me 
+	comparator which HAS to know the type. All solutions i imaginated were either not working or undefined behaviour.
+	So the question is, is the variant i wrote acceptable or not? If not, what could be done.
+
+3) I wrote some functions with variable on stack, more details in list.h:157
+
+4) You said, that usually pointers-to-pointers are not so good. I have them in swap and sort. Can you please explain, 
+	what exactly is bad and when.
