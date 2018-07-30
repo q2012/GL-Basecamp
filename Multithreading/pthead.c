@@ -10,7 +10,11 @@
 #include <sched.h>
 #include <pthread.h>
 
-#define log(x) (x)
+static inline double log(int a)
+{
+	for(int k = 1; k > 0; ++k);
+		return a;
+}
 
 /* This variable is module-global to be visible inside plog */
 static bool is_verbose = false;
@@ -107,13 +111,13 @@ void *threadfunc(void *args)
 	struct thread_data *data = args;
 
 	/* We check the time spent in each thread and the global time */
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &data->start_time);
+	clock_gettime(CLOCK_REALTIME, &data->start_time);
 
 	double r = 0.;
 	for (int i = 0; i < data->num_items; i++)
 		r += log(data->arrptr[i]);      /* arrptr is a slice of original array */
 
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &data->end_time);
+	clock_gettime(CLOCK_REALTIME, &data->end_time);
 	pthread_mutex_lock(data->lock); /* wait till acquire */
 	/* Now we own a lock */
 	*data->resptr += r;	/* manipulate the shared data */
@@ -227,7 +231,7 @@ int main(int argc, char *argv[])
 
 	double result = 0.;
 	struct timespec time_now, time_after;
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_now);
+	clock_gettime(CLOCK_REALTIME, &time_now);
 	for (int i = 0; i < num_threads; i++) {
 		long long slice = arr_size / num_threads;
 		th_dat[i].arrptr = &(array[i * slice]);	/* Points to start of array slice */
@@ -241,7 +245,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < num_threads; i++)
 		pthread_join(threads[i], NULL);
 
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_after);
+	clock_gettime(CLOCK_REALTIME, &time_after);
 
 	/* Calculate the resulting times */
 	double took_global = timespec_diff(&time_after, &time_now);
